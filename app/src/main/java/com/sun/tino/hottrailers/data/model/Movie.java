@@ -1,46 +1,66 @@
 package com.sun.tino.hottrailers.data.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+@Entity(tableName = "favorite_table")
 public class Movie {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     @SerializedName("id")
     private int mId;
 
+    @Ignore
     @SerializedName("backdrop_path")
     private String mBackdropPath;
 
+    @Ignore
     @SerializedName("genres")
     private List<Genre> mGenres;
 
+    @ColumnInfo(name = "title")
     @SerializedName("title")
     private String mTitle;
 
+    @ColumnInfo(name = "overview")
     @SerializedName("overview")
     private String mOverview;
 
+    @ColumnInfo(name = "poster_path")
     @SerializedName("poster_path")
     private String mPosterPath;
 
+    @Ignore
     @SerializedName("production_companies")
     private List<Company> mProductionCompanies;
 
+    @ColumnInfo(name = "release_date")
     @SerializedName("release_date")
     private String mReleaseDate;
 
+    @Ignore
     @SerializedName("runtime")
     private int mRuntime;
 
+    @ColumnInfo(name = "vote_average")
     @SerializedName("vote_average")
     private double mVoteAverage;
 
+    @ColumnInfo(name = "vote_count")
     @SerializedName("vote_count")
     private int mVoteCount;
 
+    @Ignore
     @SerializedName("videos")
     private VideoResult mVideoResult;
 
+    @Ignore
     @SerializedName("credits")
     private CastResult mCastResult;
 

@@ -32,4 +32,10 @@ public abstract class BaseActivity<VB extends ViewDataBinding, VM extends BaseVi
     public VB getViewDataBinding() {
         return mViewDataBinding;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mViewModel.onCleared();
+    }
 }

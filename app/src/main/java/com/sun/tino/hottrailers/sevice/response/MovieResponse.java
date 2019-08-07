@@ -6,11 +6,6 @@ import com.sun.tino.hottrailers.data.model.Movie;
 import java.util.List;
 
 public class MovieResponse {
-    @SerializedName("page")
-    private int mPage;
-
-    @SerializedName("total_page")
-    private int mTotalPage;
 
     @SerializedName("total_results")
     private int mTotalResult;
@@ -19,22 +14,6 @@ public class MovieResponse {
     private List<Movie> mMovies;
 
     public MovieResponse() {
-    }
-
-    public int getPage() {
-        return mPage;
-    }
-
-    public void setPage(int page) {
-        mPage = page;
-    }
-
-    public int getTotalPage() {
-        return mTotalPage;
-    }
-
-    public void setTotalPage(int totalPage) {
-        mTotalPage = totalPage;
     }
 
     public int getTotalResult() {
