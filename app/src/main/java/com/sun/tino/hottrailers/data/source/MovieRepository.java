@@ -1,9 +1,7 @@
 package com.sun.tino.hottrailers.data.source;
 
-import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.LiveData;
 
-import com.sun.tino.hottrailers.base.BaseRepository;
 import com.sun.tino.hottrailers.data.model.Actor;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
@@ -15,7 +13,8 @@ import java.util.List;
 
 import io.reactivex.Single;
 
-public class MovieRepository extends BaseRepository implements MovieDataSource.Local, MovieDataSource.Remote {
+public class MovieRepository
+        implements MovieDataSource.Local, MovieDataSource.Remote {
 
     private static MovieRepository sMovieRepository;
     private MovieLocalData mLocalData;
