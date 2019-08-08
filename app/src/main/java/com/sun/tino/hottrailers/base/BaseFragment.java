@@ -50,10 +50,4 @@ public abstract class BaseFragment<VB extends ViewDataBinding, VM extends BaseVi
     public VB getViewBinding() {
         return mViewBinding;
     }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mViewModel.onCleared();
-    }
 }

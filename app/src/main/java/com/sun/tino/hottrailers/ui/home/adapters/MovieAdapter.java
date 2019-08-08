@@ -1,0 +1,65 @@
+package com.sun.tino.hottrailers.ui.home.adapters;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableList;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.sun.tino.hottrailers.R;
+import com.sun.tino.hottrailers.data.model.Movie;
+import com.sun.tino.hottrailers.databinding.ItemVerticalMovieBinding;
+import com.sun.tino.hottrailers.ui.home.ItemMovieViewModel;
+
+import java.util.List;
+
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+    private ObservableList<Movie> mMovies;
+
+    MovieAdapter() {
+        mMovies = new ObservableArrayList<>();
+    }
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+        ItemVerticalMovieBinding binding = DataBindingUtil.inflate(inflater,
+                R.layout.item_vertical_movie, viewGroup, false);
+        return new ViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        viewHolder.bindData(mMovies.get(i));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mMovies != null ? mMovies.size() : 0;
+    }
+
+    public void update(List<Movie> movies) {
+        mMovies.clear();
+        mMovies.addAll(movies);
+        notifyDataSetChanged();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private ItemVerticalMovieBinding mBinding;
+
+        ViewHolder(ItemVerticalMovieBinding binding) {
+            super(binding.getRoot());
+            mBinding = binding;
+        }
+
+        void bindData(Movie movie) {
+            mBinding.setViewModel(new ItemMovieViewModel());
+            mBinding.getViewModel().setMovie(movie);
+            mBinding.executePendingBindings();
+        }
+    }
+}
