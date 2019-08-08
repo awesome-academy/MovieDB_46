@@ -5,13 +5,7 @@ import androidx.lifecycle.ViewModel;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends ViewModel {
-    private BaseRepository mBaseRepository;
-    private CompositeDisposable mCompositeDisposable;
-
-    public BaseViewModel(BaseRepository baseRepository) {
-        mBaseRepository = baseRepository;
-        mCompositeDisposable = new CompositeDisposable();
-    }
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @Override
     protected void onCleared() {

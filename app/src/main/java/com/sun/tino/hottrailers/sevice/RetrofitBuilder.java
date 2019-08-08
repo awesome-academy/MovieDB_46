@@ -17,12 +17,13 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
-    private static final String QUERRY_PARAMETER_API_KEY = "api_key";
+    private static final String QUERY_PARAMETER_API_KEY = "api_key";
     private static final String API_KEY = BuildConfig.API_KEY;
     //API BASE URL
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
@@ -33,7 +34,7 @@ public class RetrofitBuilder {
     private static final int CONNECT_TIMEOUT = 5000;
 
     //Set cache {size: 10MB, time cache online: 1 min, time cache offline: 1 day}
-    private static String CACHE_CONTROL = "Cache Control";
+    private static String CACHE_CONTROL = "Cache-Control";
     private static final long CACHE_SIZE = 10 * 1024 * 1024;
     private static final String TIME_CACHE_ONLINE = "public, max-age = 60";
     private static final String TIME_CACHE_OFFLINE = "public, only-if-cached, max-stale = 86400";
@@ -41,7 +42,7 @@ public class RetrofitBuilder {
     private static Retrofit sRetrofit;
 
     public static Retrofit getInstance(Context context) {
-        if (sRetrofit != null) {
+        if (sRetrofit == null) {
             sRetrofit = new Retrofit.Builder().baseUrl(BASE_URL)
                     .client(initClient(context))
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -84,7 +85,7 @@ public class RetrofitBuilder {
                         }
                         HttpUrl httpUrl = request.url()
                                 .newBuilder()
-                                .addQueryParameter(QUERRY_PARAMETER_API_KEY, API_KEY)
+                                .addQueryParameter(QUERY_PARAMETER_API_KEY, API_KEY)
                                 .build();
                         Request.Builder requestBuilder = request
                                 .newBuilder()
@@ -92,6 +93,12 @@ public class RetrofitBuilder {
                         return chain.proceed(requestBuilder.build());
                     }
                 });
+        //Debug API
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.level(HttpLoggingInterceptor.Level.BODY);
+            builder.addInterceptor(loggingInterceptor);
+        }
         return builder.build();
     }
 }
