@@ -44,7 +44,7 @@ public class Movie {
     @SerializedName("release_date")
     private String mReleaseDate;
 
-    @Ignore
+    @ColumnInfo(name = "runtime")
     @SerializedName("runtime")
     private int mRuntime;
 

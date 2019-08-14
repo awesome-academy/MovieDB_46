@@ -22,7 +22,7 @@ public class MovieInfoFragment extends Fragment implements GenreAdapter.GenreLis
     private FragmentMovieInfoBinding mBinding;
     private MovieDetailViewModel mViewModel;
     private static final String MSG_ADDED = "Added to Favorite";
-    private static final String MSG_REMOVED = "Removed from Favorite";
+    public static final String MSG_REMOVED = "Removed from Favorite";
 
     public MovieInfoFragment() {
         // Required empty public constructor
