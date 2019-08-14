@@ -6,6 +6,11 @@
     <string name="text_genres">Genres</string>
     <string name="text_sharp">#</string>
     <string name="view_more"><u>More</u></string>
+    <string name="label_minutes"><p> mins</p></string>
     <string name="label_overview">Overview</string>
-    <string name="label_minutes">min</string>
-    </resources>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_empty">Empty !</string>
+    <string name="label_as"><i><p> as </p></i></string>
+</resources>

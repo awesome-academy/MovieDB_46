@@ -1,13 +1,11 @@
 package com.sun.tino.hottrailers.ui.home;
 
 import android.content.Context;
-
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import com.sun.tino.hottrailers.base.BaseViewModel;
 import com.sun.tino.hottrailers.data.model.CategoryKey;
 import com.sun.tino.hottrailers.data.model.CategoryName;
@@ -16,7 +14,6 @@ import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.MovieRepository;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
 import com.sun.tino.hottrailers.data.source.remote.MovieRemoteData;
-
 import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -170,7 +167,7 @@ public class HomeViewModel extends BaseViewModel {
                 && mIsNowPlayingLoaded.get();
     }
 
-    public void dispose() {
+    void dispose() {
         mDisposable.dispose();
     }
 

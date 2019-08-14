@@ -19,6 +19,7 @@ import com.sun.tino.hottrailers.databinding.FragmentHomeBinding;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.SlideAdapter;
+import com.sun.tino.hottrailers.ui.movie_detail.MovieDetailActivity;
 
 import java.util.Objects;
 import java.util.Timer;
@@ -68,7 +69,10 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     private void observeMoviesAdapter() {
         mHomeViewModel.getTopTrendingMovies()
                 .observe(this, movies -> mSlideAdapter.update(movies));
-        mHomeViewModel.getGenres().observe(this, genres -> mGenreAdapter.update(genres));
+        mHomeViewModel.getGenres().observe(this, genres -> {
+            mGenreAdapter.update(genres);
+            mHomeBinding.recyclerGenre.setAdapter(mGenreAdapter);
+        });
     }
 
     private void initAdapters() {
@@ -161,7 +165,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void startMovieDetailActivity(Movie movie) {
-        Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_SHORT).show();
+        startActivity(MovieDetailActivity.getIntent(getActivity(), movie.getId(), movie.getTitle()));
     }
 
     @Override

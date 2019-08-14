@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager()
                 , PagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         mViewPager.setAdapter(pagerAdapter);
+        mViewPager.setOffscreenPageLimit(2);
         mViewPager.addOnPageChangeListener(this);
     }
 
