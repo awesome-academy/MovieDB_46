@@ -2,6 +2,7 @@ package com.sun.tino.hottrailers.ui.home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -62,6 +63,8 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
         mHomeViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance
                 (Objects.requireNonNull(getActivity()).getApplication()).create(HomeViewModel.class);
         mHomeViewModel.initViewModel(getContext());
+        mHomeViewModel.getMovies().observe(this, movies ->
+                Log.d("Favorite", "onChanged: " + movies.size()));
         observeMoviesAdapter();
         return mHomeViewModel;
     }

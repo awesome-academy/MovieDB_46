@@ -32,6 +32,7 @@ public class HomeViewModel extends BaseViewModel {
     private MutableLiveData<List<Movie>> mTopTrendingMovies;
     public final ObservableList<ObservableList<Movie>> categoryMovies = new ObservableArrayList<>();
     public final ObservableList<String> categoryTitle = new ObservableArrayList<>();
+    private LiveData<List<Movie>> mMovieFavorite;
 
     private ObservableList<Movie> nowPlayingMovies = new ObservableArrayList<>();
     private ObservableList<Movie> upComingMovies = new ObservableArrayList<>();
@@ -46,11 +47,16 @@ public class HomeViewModel extends BaseViewModel {
 
     public final ObservableBoolean isAllLoaded = new ObservableBoolean(false);
 
-    void initViewModel(Context context) {
+    public void initViewModel(Context context) {
         mDisposable = new CompositeDisposable();
         mRepository = MovieRepository.getInstance
                 (MovieRemoteData.getInstance(context), MovieLocalData.getInstance(context));
+        mMovieFavorite = mRepository.getAllFavorite();
         loadCategories();
+    }
+
+    public LiveData<List<Movie>> getMovies(){
+        return mMovieFavorite;
     }
 
     LiveData<List<Movie>> getTopTrendingMovies() {

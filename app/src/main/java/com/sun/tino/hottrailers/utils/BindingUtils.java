@@ -14,6 +14,7 @@ import com.sun.tino.hottrailers.data.model.Company;
 import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.model.Video;
+import com.sun.tino.hottrailers.ui.favorite.FavoriteAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.MovieAdapter;
