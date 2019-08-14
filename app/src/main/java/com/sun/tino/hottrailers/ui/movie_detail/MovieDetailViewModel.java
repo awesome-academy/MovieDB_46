@@ -1,16 +1,19 @@
 package com.sun.tino.hottrailers.ui.movie_detail;
 
 import android.content.Context;
+
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
+
 import com.sun.tino.hottrailers.base.BaseViewModel;
 import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.MovieRepository;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
 import com.sun.tino.hottrailers.data.source.remote.MovieRemoteData;
+
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -26,6 +29,7 @@ public class MovieDetailViewModel extends BaseViewModel {
     private MovieRepository mRepository;
     private OnTrailerListener mTrailerListener;
     private OnInternetListener mInternetListener;
+    private OnFavoriteListener mFavoriteListener;
 
     public void initViewModel(Context context, OnTrailerListener listener) {
         mTrailerListener = listener;
@@ -67,5 +71,19 @@ public class MovieDetailViewModel extends BaseViewModel {
 
     public void destroy() {
         mDisposables.dispose();
+    }
+
+    public void changeFavorite() {
+        isFavorite.set(!isFavorite.get());
+        if (isFavorite.get()) {
+            mRepository.addFavorite(mMovie.get());
+        } else {
+            mRepository.deleteFavorite(mMovie.get());
+        }
+        mFavoriteListener.onFavoriteClick(isFavorite.get());
+    }
+
+    public interface OnFavoriteListener {
+        void onFavoriteClick(boolean isFavorite);
     }
 }
