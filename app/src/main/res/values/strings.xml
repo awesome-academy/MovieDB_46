@@ -7,4 +7,5 @@
     <string name="text_sharp">#</string>
     <string name="view_more"><u>More</u></string>
     <string name="label_overview">Overview</string>
-</resources>
+    <string name="label_minutes">min</string>
+    </resources>
