@@ -12,12 +12,14 @@ import androidx.fragment.app.Fragment;
 import com.sun.tino.hottrailers.R;
 import com.sun.tino.hottrailers.databinding.FragmentTrailerBinding;
 import com.sun.tino.hottrailers.ui.movie_detail.MovieDetailViewModel;
+import com.sun.tino.hottrailers.ui.movie_detail.OnTrailerListener;
 
 import java.util.ArrayList;
 
 public class TrailerFragment extends Fragment {
     private MovieDetailViewModel mViewModel;
     private FragmentTrailerBinding mBinding;
+    private OnTrailerListener mListener;
 
     public TrailerFragment() {
         // Required empty public constructor
@@ -37,7 +39,7 @@ public class TrailerFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        mBinding.recyclerTrailer.setAdapter(new TrailerAdapter(new ArrayList<>()));
+        mBinding.recyclerTrailer.setAdapter(new TrailerAdapter(new ArrayList<>(), mListener));
     }
 
     public MovieDetailViewModel getViewModel() {
@@ -46,5 +48,9 @@ public class TrailerFragment extends Fragment {
 
     public void setViewModel(MovieDetailViewModel viewModel) {
         mViewModel = viewModel;
+    }
+
+    public void setListener(OnTrailerListener listener) {
+        mListener = listener;
     }
 }

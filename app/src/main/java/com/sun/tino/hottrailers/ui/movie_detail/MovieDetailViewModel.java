@@ -6,6 +6,7 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
+import androidx.lifecycle.LiveData;
 
 import com.sun.tino.hottrailers.base.BaseViewModel;
 import com.sun.tino.hottrailers.data.model.Genre;
@@ -14,7 +15,6 @@ import com.sun.tino.hottrailers.data.source.MovieRepository;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
 import com.sun.tino.hottrailers.data.source.remote.MovieRemoteData;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -31,18 +31,18 @@ public class MovieDetailViewModel extends BaseViewModel {
     private OnInternetListener mInternetListener;
     private OnFavoriteListener mFavoriteListener;
 
-    public void initViewModel(Context context, OnTrailerListener listener) {
+    void initViewModel(Context context, OnTrailerListener listener) {
         mTrailerListener = listener;
         mDisposables = new CompositeDisposable();
         mRepository = MovieRepository.getInstance(
                 MovieRemoteData.getInstance(context), MovieLocalData.getInstance(context));
     }
 
-    public void setInternetListener(OnInternetListener internetListener) {
-        mInternetListener = internetListener;
+    LiveData<Movie> getFavoriteMovie(int idMovie) {
+        return mRepository.getFavoriteById(idMovie);
     }
 
-    public void loadMovieDetail(int movieId) {
+    void loadMovieDetail(int movieId) {
         Disposable disposable = mRepository.getMovieDetail(movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -57,20 +57,6 @@ public class MovieDetailViewModel extends BaseViewModel {
                     if (mInternetListener != null) mInternetListener.onNoInternet();
                 });
         mDisposables.add(disposable);
-
-        checkFavorite(movieId);
-    }
-
-    public void checkFavorite(int movieId) {
-        Disposable disposable = Observable.defer(() -> Observable.just(mRepository.isFavorite(movieId)))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(isFavorite::set);
-        mDisposables.add(disposable);
-    }
-
-    public void destroy() {
-        mDisposables.dispose();
     }
 
     public void changeFavorite() {
@@ -83,7 +69,20 @@ public class MovieDetailViewModel extends BaseViewModel {
         mFavoriteListener.onFavoriteClick(isFavorite.get());
     }
 
+    void destroy() {
+        mDisposables.dispose();
+    }
+
+    void setInternetListener(OnInternetListener internetListener) {
+        mInternetListener = internetListener;
+    }
+
+    public void setFavoriteListener(OnFavoriteListener favoriteListener) {
+        mFavoriteListener = favoriteListener;
+    }
+
     public interface OnFavoriteListener {
         void onFavoriteClick(boolean isFavorite);
     }
+
 }

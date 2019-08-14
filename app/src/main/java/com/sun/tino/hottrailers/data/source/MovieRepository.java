@@ -39,6 +39,11 @@ public class MovieRepository
     }
 
     @Override
+    public LiveData<Movie> getFavoriteById(int idMovie) {
+        return mLocalData.getFavoriteById(idMovie);
+    }
+
+    @Override
     public void addFavorite(Movie movie) {
         mLocalData.addFavorite(movie);
     }

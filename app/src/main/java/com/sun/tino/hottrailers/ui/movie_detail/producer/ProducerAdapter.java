@@ -16,7 +16,7 @@ import java.util.List;
 public class ProducerAdapter extends RecyclerView.Adapter<ProducerAdapter.ViewHolder> {
     private List<Company> mCompanies;
 
-    public ProducerAdapter(List<Company> companies) {
+    ProducerAdapter(List<Company> companies) {
         mCompanies = companies;
     }
 
