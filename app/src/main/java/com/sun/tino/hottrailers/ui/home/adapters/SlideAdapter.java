@@ -1,5 +1,6 @@
 package com.sun.tino.hottrailers.ui.home.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,17 +21,18 @@ import java.util.List;
 public class SlideAdapter extends PagerAdapter {
     private ObservableList<Movie> mMovies;
     private ItemSlideBinding mBinding;
+    private LayoutInflater mInflater;
     private int mCurrentSlide;
 
-    public SlideAdapter() {
+    public SlideAdapter(Context context) {
         mMovies = new ObservableArrayList<>();
+        mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        LayoutInflater inflater = LayoutInflater.from(container.getContext());
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.item_slide, container, true);
+        mBinding = DataBindingUtil.inflate(mInflater, R.layout.item_slide, container, true);
         if (mBinding.getViewModel() == null) {
             mBinding.setViewModel(new ItemMovieViewModel());
         }

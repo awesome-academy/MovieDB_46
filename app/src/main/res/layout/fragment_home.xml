@@ -88,6 +88,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/color_gray_steel"
                     android:orientation="vertical"
+                    app:bindCategoryMovie="@{viewModel.categoryMovies}"
+                    app:bindCategoryTitle="@{viewModel.categoryTitle}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -97,7 +99,9 @@
                     android:id="@+id/text_genres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:text="@string/text_genres"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_26"
@@ -123,11 +127,12 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_8"
                     android:orientation="horizontal"
+                    android:paddingBottom="@dimen/dp_8"
                     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/image_star"
+                    app:layout_constraintStart_toStartOf="@+id/recycler_category"
                     app:layout_constraintTop_toBottomOf="@id/text_genres"
-                    app:spanCount="5" />
+                    app:spanCount="3" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
