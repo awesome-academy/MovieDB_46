@@ -9,11 +9,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.sun.tino.hottrailers.R;
-import com.sun.tino.hottrailers.utils.ISelectFragment;
+import com.sun.tino.hottrailers.utils.IPager;
 
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_FAVORITE;
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_HOME;
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_SEARCH;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_FAVORITE;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_HOME;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_SEARCH;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.
         OnNavigationItemSelectedListener, ViewPager.OnPageChangeListener {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     @Override
-    public void onPageSelected(@ISelectFragment int position) {
+    public void onPageSelected(@IPager int position) {
         switch (position) {
             case FRAGMENT_HOME:
                 mNavigationView.setSelectedItemId(R.id.home_fragment);

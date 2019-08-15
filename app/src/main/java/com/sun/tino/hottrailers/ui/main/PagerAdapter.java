@@ -8,11 +8,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.sun.tino.hottrailers.ui.favorite.FavoriteFragment;
 import com.sun.tino.hottrailers.ui.home.HomeFragment;
 import com.sun.tino.hottrailers.ui.search.SearchFragment;
-import com.sun.tino.hottrailers.utils.ISelectFragment;
+import com.sun.tino.hottrailers.utils.IPager;
 
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_FAVORITE;
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_HOME;
-import static com.sun.tino.hottrailers.utils.ISelectFragment.FRAGMENT_SEARCH;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_FAVORITE;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_HOME;
+import static com.sun.tino.hottrailers.utils.IPager.FRAGMENT_SEARCH;
 
 public class PagerAdapter extends FragmentPagerAdapter {
     private static final int SUM_FRAGMENT = 3;
@@ -23,7 +23,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
     @NonNull
     @Override
-    public Fragment getItem(@ISelectFragment int position) {
+    public Fragment getItem(@IPager int position) {
         switch (position) {
             case FRAGMENT_HOME:
                 return HomeFragment.newInstance();

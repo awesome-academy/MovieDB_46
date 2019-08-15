@@ -8,4 +8,5 @@
     <color name="color_black">#000</color>
     <color name="color_gray_steel">#777B7E</color>
     <color name="color_transparent">#00000000</color>
+    <color name="color_transparent_black">#3C000000</color>
 </resources>
