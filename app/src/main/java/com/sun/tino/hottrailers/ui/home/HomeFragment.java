@@ -3,6 +3,7 @@ package com.sun.tino.hottrailers.ui.home;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,8 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.sun.tino.hottrailers.BR;
 import com.sun.tino.hottrailers.R;
 import com.sun.tino.hottrailers.base.BaseFragment;
+import com.sun.tino.hottrailers.data.model.Genre;
+import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.databinding.FragmentHomeBinding;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
@@ -21,7 +24,9 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
+public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> implements
+        HomeNavigator, CategoryAdapter.CategoryListener, SlideAdapter.SlideListener,
+        GenreAdapter.GenreListener {
 
     private static final CharSequence TITTLE_SPACE = " ";
     private static final int DEFAULT_SCROLL_RANGE = -1;
@@ -67,14 +72,14 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     }
 
     private void initAdapters() {
-        mSlideAdapter = new SlideAdapter(getContext());
-        mGenreAdapter = new GenreAdapter(getContext());
+        mSlideAdapter = new SlideAdapter(getContext(), this);
+        mGenreAdapter = new GenreAdapter(getContext(), this);
         mHomeBinding.viewPager.setAdapter(mSlideAdapter);
         mCurrentSlide = mSlideAdapter.getCurrentSlide();
         mHomeBinding.tabLayout.setupWithViewPager(mHomeBinding.viewPager, true);
         mHomeBinding.recyclerGenre.setAdapter(mGenreAdapter);
         mHomeBinding.recyclerGenre.setNestedScrollingEnabled(false);
-        mHomeBinding.recyclerCategory.setAdapter(new CategoryAdapter(getContext()));
+        mHomeBinding.recyclerCategory.setAdapter(new CategoryAdapter(getContext(), this));
         mHomeBinding.recyclerCategory.setNestedScrollingEnabled(false);
         initTimerChangeSlide();
     }
@@ -132,5 +137,40 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public void onDestroy() {
         super.onDestroy();
         mHomeViewModel.dispose();
+    }
+
+    @Override
+    public void OnGenreClickListener(Genre genre) {
+        startGenreActivity(genre.getId(), genre.getName());
+    }
+
+    @Override
+    public void OnSlideClickListener(Movie movie) {
+        startMovieDetailActivity(movie);
+    }
+
+    @Override
+    public void OnMovieClickListener(Movie movie) {
+        startMovieDetailActivity(movie);
+    }
+
+    @Override
+    public void OnLoadMoreClickListener(String category) {
+        Toast.makeText(getContext(), category, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startMovieDetailActivity(Movie movie) {
+        Toast.makeText(getContext(), movie.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startCategoryActivity(String categoryKey, String categoryTitle) {
+        Toast.makeText(getContext(), categoryTitle, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void startGenreActivity(String genreKey, String genreTitle) {
+        Toast.makeText(getContext(), genreTitle, Toast.LENGTH_SHORT).show();
     }
 }

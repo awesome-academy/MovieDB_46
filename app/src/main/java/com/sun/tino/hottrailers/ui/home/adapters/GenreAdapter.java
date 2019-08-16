@@ -2,6 +2,7 @@ package com.sun.tino.hottrailers.ui.home.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,10 +21,13 @@ import java.util.List;
 public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> {
     private ObservableList<Genre> mGenres;
     private LayoutInflater mInflater;
+    private GenreListener mListener;
 
-    public GenreAdapter(Context context) {
+
+    public GenreAdapter(Context context, GenreListener listener) {
         mGenres = new ObservableArrayList<>();
         mInflater = LayoutInflater.from(context);
+        mListener = listener;
     }
 
     @NonNull
@@ -31,7 +35,7 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         ItemGenreBinding binding = DataBindingUtil
                 .inflate(mInflater, R.layout.item_genre, viewGroup, false);
-        return new ViewHolder(binding);
+        return new ViewHolder(binding, mListener);
     }
 
     @Override
@@ -50,19 +54,31 @@ public class GenreAdapter extends RecyclerView.Adapter<GenreAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        ItemGenreBinding mBinding;
-        ItemGenreViewModel mViewModel;
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private ItemGenreBinding mBinding;
+        private ItemGenreViewModel mViewModel;
+        private GenreListener mListener;
 
-        ViewHolder(ItemGenreBinding binding) {
+        ViewHolder(ItemGenreBinding binding, GenreListener listener) {
             super(binding.getRoot());
             mBinding = binding;
             mViewModel = new ItemGenreViewModel();
             mBinding.setViewModel(mViewModel);
+            mListener = listener;
+            mBinding.itemGenre.setOnClickListener(this);
         }
 
         void bindData(Genre genre) {
             mViewModel.genre.set(genre);
         }
+
+        @Override
+        public void onClick(View view) {
+            mListener.OnGenreClickListener(mBinding.getViewModel().genre.get());
+        }
+    }
+
+    public interface GenreListener{
+        void OnGenreClickListener(Genre genre);
     }
 }
