@@ -18,15 +18,17 @@ import com.sun.tino.hottrailers.ui.home.ItemMovieViewModel;
 
 import java.util.List;
 
-public class SlideAdapter extends PagerAdapter {
+public class SlideAdapter extends PagerAdapter implements View.OnClickListener {
     private ObservableList<Movie> mMovies;
     private ItemSlideBinding mBinding;
     private LayoutInflater mInflater;
+    private SlideListener mListener;
     private int mCurrentSlide;
 
-    public SlideAdapter(Context context) {
+    public SlideAdapter(Context context, SlideListener listener) {
         mMovies = new ObservableArrayList<>();
         mInflater = LayoutInflater.from(context);
+        mListener = listener;
     }
 
     @NonNull
@@ -39,6 +41,7 @@ public class SlideAdapter extends PagerAdapter {
         mBinding.getViewModel().setMovie(mMovies.get(position));
         mCurrentSlide = position;
         mBinding.executePendingBindings();
+        mBinding.imageSlide.setOnClickListener(this);
         return mBinding.getRoot();
     }
 
@@ -70,5 +73,14 @@ public class SlideAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
+    }
+
+    @Override
+    public void onClick(View view) {
+        mListener.OnSlideClickListener(mBinding.getViewModel().getMovie());
+    }
+
+    public interface SlideListener{
+        void OnSlideClickListener(Movie movie);
     }
 }
