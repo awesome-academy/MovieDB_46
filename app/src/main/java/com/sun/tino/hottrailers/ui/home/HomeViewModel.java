@@ -16,11 +16,8 @@ import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.MovieRepository;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
 import com.sun.tino.hottrailers.data.source.remote.MovieRemoteData;
-import com.sun.tino.hottrailers.sevice.response.MovieResponse;
 
 import java.util.List;
-
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

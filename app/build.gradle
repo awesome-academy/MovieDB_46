@@ -61,4 +61,10 @@ dependencies {
 
     //Debug API
     implementation "com.squareup.okhttp3:logging-interceptor:4.0.1"
+
+    //Import Youtube API
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
+
+    //Circle Image
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }
