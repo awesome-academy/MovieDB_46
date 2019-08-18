@@ -14,6 +14,7 @@ import com.sun.tino.hottrailers.data.model.Company;
 import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.model.Video;
+import com.sun.tino.hottrailers.ui.category.MovieHorizontalAdapter;
 import com.sun.tino.hottrailers.ui.favorite.FavoriteAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
@@ -102,5 +103,12 @@ public class BindingUtils {
     public static void setAdapterRecyclerProducers(RecyclerView recyclerView, List<Company> companies) {
         ProducerAdapter adapter = (ProducerAdapter) recyclerView.getAdapter();
         if (adapter != null) adapter.setCompanies(companies);
+    }
+
+    @BindingAdapter("bindMovies")
+    public static void bindMovies(RecyclerView recyclerView,
+                                  ObservableList<Movie> movies) {
+        MovieHorizontalAdapter adapter = (MovieHorizontalAdapter) recyclerView.getAdapter();
+        if (adapter != null) adapter.addMovies(movies);
     }
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.sun.tino.hottrailers.ui.movie_detail.cast.ItemCastViewModel" />
@@ -25,13 +26,13 @@
                 android:id="@+id/image_cast"
                 android:layout_width="@dimen/dp_130"
                 android:layout_height="@dimen/dp_130"
-                app:civ_border_color="@color/color_white"
-                app:civ_border_width="@dimen/dp_2"
-                app:civ_border_overlay="true"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                app:bindSmallImage="@{viewModel.actor.profilePath}"
                 android:src="@drawable/image_loading"
+                app:bindSmallImage="@{viewModel.actor.profilePath}"
+                app:civ_border_color="@color/color_orange_mango_tango"
+                app:civ_border_overlay="true"
+                app:civ_border_width="@dimen/dp_1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.cardview.widget.CardView>
@@ -39,10 +40,10 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_8"
-            android:layout_marginRight="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_4"
-            app:cardCornerRadius="@dimen/dp_10"
+            app:cardCornerRadius="@dimen/dp_20"
             app:cardElevation="@dimen/dp_2">
 
             <LinearLayout
@@ -55,12 +56,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    android:text="@{viewModel.actor.name}"
                     android:paddingLeft="@dimen/dp_4"
                     android:paddingRight="@dimen/dp_4"
+                    android:text="@{viewModel.actor.name}"
                     android:textAlignment="center"
                     android:textColor="@color/color_black"
-                    android:textSize="@dimen/sp_16"
+                    android:textSize="@dimen/sp_14"
                     android:textStyle="bold" />
 
                 <TextView

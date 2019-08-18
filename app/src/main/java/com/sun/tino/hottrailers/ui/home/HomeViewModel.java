@@ -1,11 +1,13 @@
 package com.sun.tino.hottrailers.ui.home;
 
 import android.content.Context;
+
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableList;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
 import com.sun.tino.hottrailers.base.BaseViewModel;
 import com.sun.tino.hottrailers.data.model.CategoryKey;
 import com.sun.tino.hottrailers.data.model.CategoryName;
@@ -14,7 +16,9 @@ import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.MovieRepository;
 import com.sun.tino.hottrailers.data.source.local.MovieLocalData;
 import com.sun.tino.hottrailers.data.source.remote.MovieRemoteData;
+
 import java.util.List;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -32,7 +36,6 @@ public class HomeViewModel extends BaseViewModel {
     private MutableLiveData<List<Movie>> mTopTrendingMovies;
     public final ObservableList<ObservableList<Movie>> categoryMovies = new ObservableArrayList<>();
     public final ObservableList<String> categoryTitle = new ObservableArrayList<>();
-    private LiveData<List<Movie>> mMovieFavorite;
 
     private ObservableList<Movie> nowPlayingMovies = new ObservableArrayList<>();
     private ObservableList<Movie> upComingMovies = new ObservableArrayList<>();
@@ -47,16 +50,11 @@ public class HomeViewModel extends BaseViewModel {
 
     public final ObservableBoolean isAllLoaded = new ObservableBoolean(false);
 
-    public void initViewModel(Context context) {
+    void initViewModel(Context context) {
         mDisposable = new CompositeDisposable();
         mRepository = MovieRepository.getInstance
                 (MovieRemoteData.getInstance(context), MovieLocalData.getInstance(context));
-        mMovieFavorite = mRepository.getAllFavorite();
         loadCategories();
-    }
-
-    public LiveData<List<Movie>> getMovies(){
-        return mMovieFavorite;
     }
 
     LiveData<List<Movie>> getTopTrendingMovies() {

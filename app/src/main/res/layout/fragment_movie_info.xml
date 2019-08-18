@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.sun.tino.hottrailers.ui.movie_detail.MovieDetailViewModel" />
     </data>
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -35,19 +38,27 @@
                 android:visibility="@{!viewModel.isShowProgress ? View.VISIBLE : View.GONE}"
                 tools:context=".ui.movie_detail.info.MovieInfoFragment">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_movie"
-                    android:layout_width="@dimen/dp_100"
-                    android:layout_height="@dimen/dp_100"
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_view_avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
                     android:background="@color/color_white_smoke"
-                    bindSmallImage="@{viewModel.mMovie.posterPath}"
-                    app:civ_border_color="@color/color_white"
-                    app:civ_border_width="@dimen/dp_2"
+                    app:cardCornerRadius="@dimen/dp_8"
+                    app:cardElevation="@dimen/dp_4"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/image_movie"
+                        bindSmallImage="@{viewModel.mMovie.posterPath}"
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="@dimen/dp_100"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
+                </androidx.cardview.widget.CardView>
 
                 <View
                     android:id="@+id/view_one"
@@ -60,10 +71,10 @@
                     android:layout_marginRight="@dimen/dp_8"
                     android:layout_marginBottom="@dimen/dp_4"
                     android:background="@drawable/bg_round_conner_white"
-                    app:layout_constraintBottom_toBottomOf="@+id/image_movie"
+                    app:layout_constraintBottom_toBottomOf="@+id/card_view_avatar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/image_movie"
-                    app:layout_constraintTop_toTopOf="@+id/image_movie">
+                    app:layout_constraintStart_toEndOf="@+id/card_view_avatar"
+                    app:layout_constraintTop_toTopOf="@+id/card_view_avatar">
 
                 </View>
 
@@ -71,9 +82,11 @@
                     android:id="@+id/text_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_8"
+                    android:layout_marginRight="@dimen/dp_8"
                     android:maxLines="1"
                     android:text="@{viewModel.mMovie.title}"
                     android:textColor="@color/color_black"
@@ -87,10 +100,12 @@
                     android:id="@+id/text_runtime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:text="@{String.valueOf(viewModel.mMovie.runtime)+@string/label_minutes}"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_12"
-                    android:text="@{String.valueOf(viewModel.mMovie.runtime)+@string/label_minutes}"
                     app:layout_constraintStart_toStartOf="@id/text_name"
                     app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
 
@@ -111,8 +126,8 @@
                     android:id="@+id/image_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_8"
-                    android:layout_marginRight="@dimen/dp_8"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_marginRight="@dimen/dp_4"
                     android:padding="@dimen/dp_8"
                     android:src="@{viewModel.isFavorite ?  @drawable/ic_favorite_on : @drawable/ic_favorite_off}"
                     app:layout_constraintBottom_toBottomOf="@+id/view_one"
@@ -140,8 +155,8 @@
                     android:background="@drawable/bg_round_conner_white"
                     app:layout_constraintBottom_toBottomOf="@id/text_overview"
                     app:layout_constraintEnd_toEndOf="@+id/view_one"
-                    app:layout_constraintStart_toStartOf="@+id/image_movie"
-                    app:layout_constraintTop_toBottomOf="@+id/image_movie" />
+                    app:layout_constraintStart_toStartOf="@+id/card_view_avatar"
+                    app:layout_constraintTop_toBottomOf="@+id/card_view_avatar" />
 
                 <TextView
                     android:id="@+id/label_overview"
@@ -167,8 +182,8 @@
                     android:paddingStart="@dimen/dp_4"
                     android:paddingEnd="@dimen/dp_4"
                     android:paddingBottom="@dimen/dp_8"
-                    android:textColor="@color/color_black"
                     android:text="@{viewModel.mMovie.overview}"
+                    android:textColor="@color/color_black"
                     app:layout_constraintEnd_toEndOf="@id/view_two"
                     app:layout_constraintStart_toStartOf="@id/view_two"
                     app:layout_constraintTop_toBottomOf="@id/label_overview" />
@@ -191,8 +206,8 @@
                     android:id="@+id/text_vote_average"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginLeft="@dimen/dp_4"
                     android:text="@{String.valueOf(viewModel.mMovie.voteAverage)}"
                     android:textSize="@dimen/sp_12"
                     app:layout_constraintBottom_toBottomOf="@+id/ratingBar"

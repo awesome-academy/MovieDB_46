@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.sun.tino.hottrailers.ui.favorite.ItemFavoriteViewModel" />
+            type="com.sun.tino.hottrailers.ui.category.ItemMovieHorizontalViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,10 +18,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/dp_12"
             android:layout_marginEnd="@dimen/dp_16"
             android:layout_marginRight="@dimen/dp_16"
-            android:layout_marginBottom="@dimen/dp_12"
             app:cardCornerRadius="@dimen/dp_8"
             app:layout_constraintBottom_toBottomOf="@+id/cardView3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,12 +41,11 @@
                     android:maxLines="1"
                     android:paddingEnd="@dimen/dp_4"
                     android:paddingRight="@dimen/dp_4"
-                    android:text="@{viewModel.movieFavorite.title}"
+                    android:text="@{viewModel.movie.title}"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_16"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/image_close"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlSymmetry" />
@@ -58,9 +55,9 @@
                     style="?attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginTop="4dp"
                     android:numStars="10"
-                    android:rating="@{(float) viewModel.movieFavorite.voteAverage}"
+                    android:rating="@{(float) viewModel.movie.voteAverage}"
                     android:stepSize="0.1"
                     android:theme="@style/RatingBar"
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
@@ -74,39 +71,14 @@
                     app:layout_constraintGuide_begin="@dimen/dp_75" />
 
                 <TextView
-                    android:id="@+id/text_runtime"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:text="@{String.valueOf(viewModel.movieFavorite.runtime)+@string/label_minutes}"
-                    android:textSize="@dimen/sp_12"
-                    app:layout_constraintStart_toStartOf="@+id/guideline4"
-                    app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
-
-                <TextView
                     android:id="@+id/text_release_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginLeft="@dimen/dp_8"
-                    android:text="@{viewModel.movieFavorite.releaseDate}"
+                    android:text="@{viewModel.movie.releaseDate}"
                     android:textSize="@dimen/sp_12"
-                    app:layout_constraintStart_toEndOf="@+id/text_runtime"
-                    app:layout_constraintTop_toBottomOf="@+id/rating_bar"
-                    android:layout_marginStart="@dimen/dp_8" />
-
-                <ImageView
-                    android:id="@+id/image_close"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_4"
-                    android:layout_marginRight="@dimen/dp_4"
-                    android:padding="@dimen/dp_4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_favorite_on"
-                    tools:ignore="ContentDescription,VectorDrawableCompat" />
+                    app:layout_constraintStart_toEndOf="@+id/guideline4"
+                    app:layout_constraintTop_toBottomOf="@+id/rating_bar" />
 
                 <TextView
                     android:id="@+id/text_overview"
@@ -116,8 +88,8 @@
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="@{viewModel.movieFavorite.overview}"
+                    android:maxLines="2"
+                    android:text="@{viewModel.movie.overview}"
                     android:textColor="@color/color_black"
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="@dimen/dp_75" />
+            app:layout_constraintGuide_begin="74dp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView3"
@@ -141,14 +113,14 @@
             android:layout_marginStart="@dimen/dp_8"
             android:layout_marginLeft="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_8"
-            app:cardCornerRadius="@dimen/dp_65"
+            app:cardCornerRadius="@dimen/dp_10"
             app:cardElevation="@dimen/dp_4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/image_movie"
-                bindImage="@{viewModel.movieFavorite.posterPath}"
+                bindImage="@{viewModel.movie.posterPath}"
                 android:layout_width="@dimen/dp_130"
                 android:layout_height="@dimen/dp_130"
                 android:scaleType="centerCrop"
@@ -157,7 +129,8 @@
                 app:civ_border_overlay="true"
                 app:civ_border_width="@dimen/dp_4"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
