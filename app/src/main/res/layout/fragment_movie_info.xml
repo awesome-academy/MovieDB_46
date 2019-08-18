@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.sun.tino.hottrailers.ui.movie_detail.MovieDetailViewModel" />
+    </data>
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -12,30 +18,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:indeterminateTint="@color/color_orange_mango_tango" />
+                android:indeterminateTint="@color/color_orange_mango_tango"
+                android:visibility="@{viewModel.isShowProgress ? View.VISIBLE : View.GONE}" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="@dimen/dp_4"
+                android:visibility="@{!viewModel.isShowProgress ? View.VISIBLE : View.GONE}"
                 tools:context=".ui.movie_detail.info.MovieInfoFragment">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_movie"
                     android:layout_width="@dimen/dp_100"
                     android:layout_height="@dimen/dp_100"
-                    android:layout_marginStart="@dimen/dp_4"
-                    android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_4"
+                    android:layout_marginStart="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:background="@color/color_white_smoke"
+                    bindSmallImage="@{viewModel.mMovie.posterPath}"
                     app:civ_border_color="@color/color_white"
                     app:civ_border_width="@dimen/dp_2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -63,12 +71,11 @@
                     android:id="@+id/text_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_4"
                     android:layout_marginLeft="@dimen/dp_4"
-                    android:layout_marginTop="@dimen/dp_4"
-                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_marginTop="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_4"
                     android:maxLines="1"
+                    android:text="@{viewModel.mMovie.title}"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_16"
                     android:textStyle="bold"
@@ -93,6 +100,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginLeft="@dimen/dp_8"
                     android:layout_marginTop="@dimen/dp_8"
+                    android:text="@{viewModel.mMovie.releaseDate}"
                     android:textColor="@color/color_black"
                     android:textSize="@dimen/sp_12"
                     app:layout_constraintStart_toEndOf="@+id/text_runtime"
@@ -105,6 +113,7 @@
                     android:layout_marginEnd="@dimen/dp_8"
                     android:layout_marginRight="@dimen/dp_8"
                     android:padding="@dimen/dp_8"
+                    android:src="@drawable/ic_favorite"
                     app:layout_constraintBottom_toBottomOf="@+id/view_one"
                     app:layout_constraintEnd_toEndOf="@+id/view_one"
                     app:layout_constraintTop_toTopOf="@+id/view_one"
@@ -117,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_8"
                     android:numStars="10"
+                    android:rating="@{(float) viewModel.mMovie.voteAverage}"
                     android:theme="@style/RatingBar"
                     app:layout_constraintStart_toStartOf="@+id/text_name"
                     app:layout_constraintTop_toBottomOf="@+id/text_name" />
@@ -157,6 +167,7 @@
                     android:paddingEnd="@dimen/dp_4"
                     android:paddingBottom="@dimen/dp_8"
                     android:textColor="@color/color_black"
+                    android:text="@{viewModel.mMovie.overview}"
                     app:layout_constraintEnd_toEndOf="@id/view_two"
                     app:layout_constraintStart_toStartOf="@id/view_two"
                     app:layout_constraintTop_toBottomOf="@id/label_overview" />
@@ -169,6 +180,7 @@
                     android:background="@drawable/bg_round_conner_white"
                     android:orientation="horizontal"
                     android:padding="@dimen/dp_4"
+                    app:bindGenres="@{viewModel.mGenres}"
                     app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/view_two"
                     app:layout_constraintStart_toStartOf="@+id/view_two"
@@ -180,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_8"
                     android:layout_marginLeft="@dimen/dp_8"
+                    android:text="@{String.valueOf(viewModel.mMovie.voteAverage)}"
                     android:textSize="@dimen/sp_12"
                     app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
                     app:layout_constraintStart_toEndOf="@+id/ratingBar"

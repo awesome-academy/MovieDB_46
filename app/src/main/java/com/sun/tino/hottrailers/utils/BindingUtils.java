@@ -9,9 +9,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sun.tino.hottrailers.R;
+import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
+import com.sun.tino.hottrailers.data.model.Video;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
+import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.MovieAdapter;
+import com.sun.tino.hottrailers.ui.movie_detail.trailer.TrailerAdapter;
+
+import java.util.List;
 
 public class BindingUtils {
     @BindingAdapter("setSplashAnimation")
@@ -32,6 +38,15 @@ public class BindingUtils {
                 .into(imageView);
     }
 
+    @BindingAdapter("bindSmallImage")
+    public static void bindImageSmall(ImageView imageView, String image_path) {
+        Glide.with(imageView)
+                .load(StringUtils.getSmallImage(image_path))
+                .thumbnail(Glide.with(imageView).load(R.drawable.image_loading))
+                .error(R.drawable.no_image)
+                .into(imageView);
+    }
+
     @BindingAdapter("bindCategoryMovies")
     public static void bindCategoryMovies(RecyclerView recycler, ObservableList<Movie> movies) {
         MovieAdapter adapter = (MovieAdapter) recycler.getAdapter();
@@ -48,5 +63,27 @@ public class BindingUtils {
         if (adapter != null) {
             adapter.update(movies, categories);
         }
+    }
+
+    @BindingAdapter("bindTrailers")
+    public static void bindTrailers(RecyclerView recyclerView, List<Video> videos) {
+        TrailerAdapter adapter = (TrailerAdapter) recyclerView.getAdapter();
+        if (adapter != null) adapter.setVideos(videos);
+    }
+
+    @BindingAdapter("youTubeThumbnailView")
+    public static void setYouTubeThumbnailView(ImageView thumbnailView,
+                                               String trailerKey) {
+        Glide.with(thumbnailView)
+                .load(StringUtils.getThumbnail(trailerKey))
+                .thumbnail(Glide.with(thumbnailView).load(R.drawable.image_prepare))
+                .error(R.drawable.no_image)
+                .into(thumbnailView);
+    }
+
+    @BindingAdapter("bindGenres")
+    public static void bindGenres(RecyclerView recyclerView, List<Genre> genres) {
+        GenreAdapter adapter = (GenreAdapter) recyclerView.getAdapter();
+        if (adapter != null) adapter.update(genres);
     }
 }
