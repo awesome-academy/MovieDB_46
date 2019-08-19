@@ -9,12 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.sun.tino.hottrailers.R;
+import com.sun.tino.hottrailers.data.model.Actor;
+import com.sun.tino.hottrailers.data.model.Company;
 import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.model.Video;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.MovieAdapter;
+import com.sun.tino.hottrailers.ui.movie_detail.cast.CastAdapter;
+import com.sun.tino.hottrailers.ui.movie_detail.producer.ProducerAdapter;
 import com.sun.tino.hottrailers.ui.movie_detail.trailer.TrailerAdapter;
 
 import java.util.List;
@@ -85,5 +89,17 @@ public class BindingUtils {
     public static void bindGenres(RecyclerView recyclerView, List<Genre> genres) {
         GenreAdapter adapter = (GenreAdapter) recyclerView.getAdapter();
         if (adapter != null) adapter.update(genres);
+    }
+
+    @BindingAdapter("bindCasts")
+    public static void setAdapterRecyclerCasts(RecyclerView recyclerView, List<Actor> actors) {
+        CastAdapter adapter = (CastAdapter) recyclerView.getAdapter();
+        if (adapter != null) adapter.setActors(actors);
+    }
+
+    @BindingAdapter("bindProducers")
+    public static void setAdapterRecyclerProducers(RecyclerView recyclerView, List<Company> companies) {
+        ProducerAdapter adapter = (ProducerAdapter) recyclerView.getAdapter();
+        if (adapter != null) adapter.setCompanies(companies);
     }
 }

@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.sun.tino.hottrailers.R;
 import com.sun.tino.hottrailers.databinding.ActivityMovieDetailBinding;
+import com.sun.tino.hottrailers.ui.movie_detail.cast.CastFragment;
 import com.sun.tino.hottrailers.ui.movie_detail.info.MovieInfoFragment;
+import com.sun.tino.hottrailers.ui.movie_detail.producer.ProducerFragment;
 import com.sun.tino.hottrailers.ui.movie_detail.trailer.TrailerFragment;
 import com.sun.tino.hottrailers.utils.Constants;
+
 import java.util.Objects;
 
 public class MovieDetailActivity extends AppCompatActivity
@@ -61,8 +66,15 @@ public class MovieDetailActivity extends AppCompatActivity
         infoFragment.setViewModel(mViewModel);
         TrailerFragment trailerFragment = TrailerFragment.newInstance();
         trailerFragment.setViewModel(mViewModel);
+        CastFragment castFragment = CastFragment.newInstance();
+        castFragment.setViewModel(mViewModel);
+        ProducerFragment producerFragment = ProducerFragment.newInstance();
+        producerFragment.setViewModel(mViewModel);
+
         pagerAdapter.addFragment(infoFragment);
         pagerAdapter.addFragment(trailerFragment);
+        pagerAdapter.addFragment(castFragment);
+        pagerAdapter.addFragment(producerFragment);
         mBinding.viewPager.setAdapter(pagerAdapter);
         mBinding.tabsMovieDetail.setupWithViewPager(mBinding.viewPager);
     }
