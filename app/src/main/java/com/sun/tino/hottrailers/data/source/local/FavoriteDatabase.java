@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.sun.tino.hottrailers.data.model.Movie;
 
-@Database(entities = Movie.class, version = 1, exportSchema = false)
+@Database(entities = Movie.class, version = 3, exportSchema = false)
 public abstract class FavoriteDatabase extends RoomDatabase {
     private static final String DB_NAME = "favorite_database";
 

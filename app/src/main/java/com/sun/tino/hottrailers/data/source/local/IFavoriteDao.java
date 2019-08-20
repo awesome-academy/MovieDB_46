@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface IFavoriteDao {
     @Insert
-    void insert(Movie movie);
+    long insert(Movie movie);
 
     @Delete
     void delete(Movie movie);
@@ -21,6 +21,6 @@ public interface IFavoriteDao {
     @Query("SELECT * FROM favorite_table")
     LiveData<List<Movie>> getAllFavorite();
 
-    @Query("SELECT * FROM favorite_table WHERE id LIKE :idMovie")
+    @Query("SELECT * FROM favorite_table WHERE id = :idMovie LIMIT 1")
     LiveData<Movie> getFavoriteById(int idMovie);
 }

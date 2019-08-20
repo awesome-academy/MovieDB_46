@@ -57,6 +57,10 @@ public class MovieDetailActivity extends AppCompatActivity
         mViewModel.initViewModel(this, this);
         mViewModel.setInternetListener(this);
         mViewModel.loadMovieDetail(mMovieId);
+        //Check movie favorite
+        mViewModel.getFavoriteMovie(mMovieId).observe(this, movie -> {
+            mViewModel.isFavorite.set(movie != null);
+        });
     }
 
     private void initViewPager() {
@@ -66,6 +70,7 @@ public class MovieDetailActivity extends AppCompatActivity
         infoFragment.setViewModel(mViewModel);
         TrailerFragment trailerFragment = TrailerFragment.newInstance();
         trailerFragment.setViewModel(mViewModel);
+        trailerFragment.setListener(this);
         CastFragment castFragment = CastFragment.newInstance();
         castFragment.setViewModel(mViewModel);
         ProducerFragment producerFragment = ProducerFragment.newInstance();

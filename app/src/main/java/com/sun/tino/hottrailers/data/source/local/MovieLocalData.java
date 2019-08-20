@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData;
 
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.data.source.MovieDataSource;
+import com.sun.tino.hottrailers.data.source.local.background_task.DeleteMovieAsyncTask;
+import com.sun.tino.hottrailers.data.source.local.background_task.InsertMovieAsyncTask;
 
 import java.util.List;
 
@@ -31,17 +33,23 @@ public class MovieLocalData implements MovieDataSource.Local {
     }
 
     @Override
+    public LiveData<Movie> getFavoriteById(int idMovie) {
+        return mDao.getFavoriteById(idMovie);
+    }
+
+    @Override
     public void addFavorite(Movie movie) {
-        mDao.insert(movie);
+        new InsertMovieAsyncTask(mDao).execute(movie);
     }
 
     @Override
     public void deleteFavorite(Movie movie) {
-        mDao.delete(movie);
+        new DeleteMovieAsyncTask(mDao).execute(movie);
     }
 
     @Override
     public boolean isFavorite(int idMovie) {
-        return mDao.getFavoriteById(idMovie) != null;
+        LiveData<Movie> favorite = getFavoriteById(idMovie);
+        return favorite != null;
     }
 }

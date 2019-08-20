@@ -1,6 +1,5 @@
 package com.sun.tino.hottrailers.data.source;
 
-import androidx.databinding.ObservableArrayList;
 import androidx.lifecycle.LiveData;
 
 import com.sun.tino.hottrailers.data.model.Actor;
@@ -15,6 +14,8 @@ import io.reactivex.Single;
 public interface MovieDataSource {
     interface Local {
         LiveData<List<Movie>> getAllFavorite();
+
+        LiveData<Movie> getFavoriteById(int idMovie);
 
         void addFavorite(Movie movie);
 

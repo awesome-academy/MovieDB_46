@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity(tableName = "favorite_table")
 public class Movie {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey()
     @ColumnInfo(name = "id")
     @SerializedName("id")
     private int mId;
