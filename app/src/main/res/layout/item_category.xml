@@ -73,9 +73,11 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_5"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginLeft="@dimen/dp_8"
             android:layout_marginTop="@dimen/dp_10"
-            android:background="@color/color_gray_steel"
+            android:layout_marginRight="@dimen/dp_8"
+            android:background="@color/color_orange_mango_tango"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycler_movie" />

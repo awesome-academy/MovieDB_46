@@ -13,9 +13,12 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.sun.tino.hottrailers.BR;
 import com.sun.tino.hottrailers.R;
 import com.sun.tino.hottrailers.base.BaseFragment;
+import com.sun.tino.hottrailers.data.model.CategoryKey;
+import com.sun.tino.hottrailers.data.model.CategoryName;
 import com.sun.tino.hottrailers.data.model.Genre;
 import com.sun.tino.hottrailers.data.model.Movie;
 import com.sun.tino.hottrailers.databinding.FragmentHomeBinding;
+import com.sun.tino.hottrailers.ui.category.CategoryActivity;
 import com.sun.tino.hottrailers.ui.home.adapters.CategoryAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.GenreAdapter;
 import com.sun.tino.hottrailers.ui.home.adapters.SlideAdapter;
@@ -160,7 +163,22 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void OnLoadMoreClickListener(String category) {
-        Toast.makeText(getContext(), category, Toast.LENGTH_SHORT).show();
+        switch (category) {
+            case CategoryName.TITLE_UP_COMING:
+                startCategoryActivity(CategoryKey.CATEGORY_UP_COMING, CategoryName.TITLE_UP_COMING);
+                break;
+            case CategoryName.TITLE_POPULAR:
+                startCategoryActivity(CategoryKey.CATEGORY_POPULAR, CategoryName.TITLE_POPULAR);
+                break;
+            case CategoryName.TITLE_TOP_RATE:
+                startCategoryActivity(CategoryKey.CATEGORY_TOP_RATE, CategoryName.TITLE_TOP_RATE);
+                break;
+            case CategoryName.TITLE_NOW_PLAYING:
+                startCategoryActivity(CategoryKey.CATEGORY_NOW_PLAYING, CategoryName.TITLE_NOW_PLAYING);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -170,7 +188,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
 
     @Override
     public void startCategoryActivity(String categoryKey, String categoryTitle) {
-        Toast.makeText(getContext(), categoryTitle, Toast.LENGTH_SHORT).show();
+        startActivity(CategoryActivity.getIntent(getActivity(), categoryKey, categoryTitle));
     }
 
     @Override

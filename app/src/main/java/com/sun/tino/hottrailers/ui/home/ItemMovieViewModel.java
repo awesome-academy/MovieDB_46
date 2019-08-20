@@ -22,6 +22,18 @@ public class ItemMovieViewModel extends ViewModel {
         return mMovie.getTitle();
     }
 
+    public String getOverview() {
+        return mMovie.getOverview();
+    }
+
+    public String getPosterPath() {
+        return mMovie.getPosterPath();
+    }
+
+    public int getRuntime(){
+        return mMovie.getRuntime();
+    }
+
     public String getBackdropPath() {
         return mMovie.getBackdropPath();
     }
